@@ -12,7 +12,7 @@ def bt3(event):
     tk.destroy()
     
 tk = Tk()
-#tk.iconbitmap('i21.ico')
+#tk.iconbitmap('of20.ico')
 tk.title("Offerist v 2.0")
 tk.geometry("305x100")
 tk.configure(background="grey")
@@ -30,3 +30,4 @@ btn3.bind('<Button-1>', bt3)
 btn3.place(x=210,y=10)
 
 tk.mainloop()
+
