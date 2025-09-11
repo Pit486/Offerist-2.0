@@ -9,7 +9,7 @@ outText=''
 client=''
 with open( 'set.txt', 'r', encoding = 'UTF-8') as f:
     company_name = (f.readline()).replace('\n','')
-
+    
 #baza kartinok
 with open( '1_list.txt', 'r', encoding = 'UTF-8') as f:
     pic = (f.read()).split('\n')
@@ -20,8 +20,7 @@ def d_now():
     return dt
 
 def pdf_out():
-    global  dt,client, offer_number, pic
-    
+    global  dt,client, offer_number, pic, company_name
 
     pdf = FPDF()
     pdf.add_font('Segoe UIB', '', 'segoeuib.ttf', uni=True)
@@ -40,8 +39,9 @@ def pdf_out():
     pdf.set_font("Segoe UIB", size=20)
     pdf.cell(190, 0, txt="PIEDĀVĀJUMS", ln=1, align="C")
     pdf.set_font("Segoe UI", size=8)
-    client=entry.get()
-    pdf.cell(220, 15, txt = company_name +"     Piedāvājuma numurs "+offer_number+"     Klients: "+client+'    '+dt, ln=1, align="C")
+    client = entry.get()
+    comp = company_name + "     Piedāvājuma numurs " + offer_number + "     Klients: " + client + '    ' + dt
+    pdf.cell(220, 15, txt = comp , ln=1, align="C")
     pdf.set_font("Segoe UI", size=10)
    
     spacing=1
@@ -63,15 +63,15 @@ def pdf_out():
                         img = 'pic//' + pic[j-1] + '//pic.jpeg'
                         break
                 pdf.image(img, x=18, y=pic_y, w=18)
-                pic_y += 24
+                pic_y += 25
                 imis=True
                 break
         if r == 1:
             pdf.image('none.jpg', x=1, y=pic_y, w=1)
-            pic_y += 24
+            pic_y += 25
         elif imis==False:
             pdf.image('none.jpeg', x=18, y=pic_y, w=18)
-            pic_y += 24
+            pic_y += 25
        
                 
         if len(row[1])<50:
@@ -92,7 +92,7 @@ def pdf_out():
             pdf.ln(row_height*spacing)
 
             #new page
-        if r == 10:
+        if r == 9:
             r = 0
             pdf.add_page()
             image_path ='logo.png'#логотип
@@ -114,17 +114,17 @@ def pdf_out():
             row_height = 12 #pdf.font_size
             pic_y=18#18
 
-            for row in data:
-                r+=1
-                pdf.cell(35, row_height*spacing, txt=row[0], border=0)
-                if r == 0:
-                    pdf.image('none.jpg', x=1, y=pic_y, w=1)
-                    pic_y += 24
+            #for row in data:
+                #r+=1
+                #pdf.cell(35, row_height*spacing, txt=row[0], border=0)
+                #if r == 1:
+                    #pdf.image('none.jpeg', x=25, y=pic_y, w=1)
+                    #pic_y += 25
                 #img=''
                 #imis=False
 
     pdf.output("offers//Offer"+offer_number+".pdf")
-    #window.destroy()
+    window.destroy()
     return
 
 
@@ -136,6 +136,8 @@ with open('settings.txt','w', encoding='UTF-8') as f:
 
 def plus():
     global data
+    if len(data)%9 == 0:
+        data.append(['Artikuls', 'Apraksts', 'Cena', 'Piezīmes'])
     outText = ''
     data1=[str(entry1.get()),str(entry1a.get()),str(entry1b.get()),str(entry1c.get())]
     if str(entry1a.get())=='':
@@ -154,8 +156,7 @@ def plus():
 
 dt=d_now()
 
-data = [['Artikuls', 'Apraksts', 'Cena', 'Piezīmes'],
-            ]
+data = [['Artikuls', 'Apraksts', 'Cena', 'Piezīmes']]
            
 window = Tk()
 window.title("Offerist")
