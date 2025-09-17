@@ -219,6 +219,7 @@ tree.pack(fill=BOTH, expand=1)
 
 labelk = Label(f0, width=10, text = 'Client: ')
 labelk.pack(side=LEFT, pady=0)
+
 entry = Entry(f0, width=40)
 entry.pack(side=LEFT, pady=10)
 entry1 = Entry(f_1, width=10)
@@ -230,7 +231,6 @@ entry1b = Entry(f_1, width=10)
 entry1b.pack(side=LEFT, pady=10)
 entry1c = Entry(f_1, width=20)
 entry1c.pack(side=LEFT, pady=10)
-
 
 labelf1 = Label(ff, width=12, text = 'Code')
 labelf1.pack(side=LEFT, pady=0)
